@@ -139,7 +139,6 @@
       };
       var sum = 0;
       while (x < n && y < n){
-        debugger;
         sum += board[x][y];
         y++; 
         x++;
@@ -162,12 +161,30 @@
     // 
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow){
-      return false; // fixme
+      var board = this.rows();
+      var y = minorDiagonalColumnIndexAtFirstRow;
+      var x = 0;
+      var n = this.get('n');
+      while(y > n){
+        y--;
+        x++;
+      };
+      var sum = 0;
+      while(x < n && y >= 0){
+        sum += board[x][y];
+        y--;
+        x++;
+      }
+      debugger;
+      return sum > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function(){
-      return false; // fixme
+      var n = this.get('n');
+      return _(_.range(0, 2*n)).reduce(function(memo, diagonal){
+        return memo || this.hasMinorDiagonalConflictAt(diagonal);
+      }, false, this);
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
