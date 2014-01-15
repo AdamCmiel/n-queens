@@ -175,7 +175,6 @@
         y--;
         x++;
       }
-      debugger;
       return sum > 1;
     },
 
@@ -199,5 +198,7 @@
       });
     });
   };
+
+  window.makeEmptyMatrix = makeEmptyMatrix;
 
 }());
