@@ -45,7 +45,6 @@ window.countNRooksSolutions = function(n){
     for (var col = 0; col<n; col++){
       solution.togglePiece(row, col);
       var board = solution.rows();
-      debugger;
       if (!solution.hasAnyRooksConflicts()){
         if (row+1<n){
           recursiveStep(row+1);
@@ -61,7 +60,6 @@ window.countNRooksSolutions = function(n){
   var duration = new Date()-before;
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   console.log(n+" Rooks: "+solutionCount+" solutions, took "+duration+" ms("+(duration/1000)+" seconds)");
-  debugger;
   return solutionCount;
 };
 
@@ -69,17 +67,52 @@ window.countNRooksSolutions = function(n){
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n){
-  var solution = undefined; //fixme
+  if (n === 0) return 1;
+  var solutionCount = 0; 
 
+  var solution = new Board(makeEmptyMatrix(n));
+  var recursiveStep = function(row){
+    for (var col = 0; col<n; col++){
+      solution.togglePiece(row, col);
+      var board = solution.rows();
+      if (!solution.hasAnyQueensConflicts()){
+        if (row+1<n){
+          recursiveStep(row+1);
+        } else {
+          solutionCount++;
+        }
+      }
+      solution.togglePiece(row, col);
+    }
+  };
+  recursiveStep(0);
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
-  return solution;
+  return solution.rows();
 };
 
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n){
-  var solutionCount = undefined; //fixme
+  if (n === 0) return 1;
+  var solutionCount = 0; 
 
+  var solution = new Board(makeEmptyMatrix(n));
+  var recursiveStep = function(row){
+    for (var col = 0; col<n; col++){
+      solution.togglePiece(row, col);
+      var board = solution.rows();
+      if (!solution.hasAnyQueensConflicts()){
+        if (row+1<n){
+          recursiveStep(row+1);
+        } else {
+          debugger;
+          solutionCount++;
+        }
+      }
+      solution.togglePiece(row, col);
+    }
+  };
+  recursiveStep(0);
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
