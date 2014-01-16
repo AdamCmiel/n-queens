@@ -161,11 +161,12 @@
     // 
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow){
+      //debugger;
       var board = this.rows();
       var y = minorDiagonalColumnIndexAtFirstRow;
       var x = 0;
       var n = this.get('n');
-      while(y > n){
+      while(y > n-1){
         y--;
         x++;
       };
@@ -182,6 +183,7 @@
     hasAnyMinorDiagonalConflicts: function(){
       var n = this.get('n');
       return _(_.range(0, 2*n)).reduce(function(memo, diagonal){
+        if (diagonal === 3) debugger;
         return memo || this.hasMinorDiagonalConflictAt(diagonal);
       }, false, this);
     }

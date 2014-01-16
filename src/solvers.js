@@ -105,7 +105,6 @@ window.countNQueensSolutions = function(n){
         if (row+1<n){
           recursiveStep(row+1);
         } else {
-          debugger;
           solutionCount++;
         }
       }
